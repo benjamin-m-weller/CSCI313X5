@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>sprites</title>
+  <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+  <script>
+  
+  var stage;
+  var image;
+
+  data = {
+    images:["bison.png"],
+    frames: {width:48,height:48,count:16}
+  };
+
+  function load() {
+    // IMAGE
+    image = new Image();
+    image.src = "bison.png"; // 144 x 193
+    image.onload = function(){ init(); }
+  }
+
+  function init() {
+    // STAGE
+    stage = new createjs.Stage("canvas");
+
+    // TICKER
+    createjs.Ticker.setFPS(20);
+    createjs.Ticker.addEventListener("tick",run);
+  }
+
+  // listener for Ticker "tick"
+  function run(e) {
+    stage.update();
+  }
+  </script>
+</head>
+<body onload="load()">
+  <canvas id="canvas" width="500" height="250" style="border:solid black 1px"></canvas>
+</body>
+</html>
