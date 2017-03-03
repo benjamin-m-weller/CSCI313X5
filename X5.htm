@@ -8,9 +8,14 @@
   var stage;
   var image;
 
-  data = {
-    images:["bison.png"],
-    frames: {width:48,height:48,count:16}
+  var data = {
+    "images":["bison.png"],
+    "frames": {width:48,height:48,count:16},
+	"animations": { "walkRight":{
+	"frames":[6,7,8],
+	"speed": 20.0
+		}
+	}
   };
 
   function load() {
@@ -23,14 +28,71 @@
   function init() {
     // STAGE
     stage = new createjs.Stage("canvas");
-
+	
+	//FIRST STEP DONE
+	//Loading and displaying the bison.png
+	// var bitmap=new createjs.Bitmap("bison.png");
+	//stage.addChild(bitmap);
+	
+	//SECOND STEP DONE
+	var spritesheet=new createjs.SpriteSheet(data);
+	// var sprite=new createjs.Sprite(spritesheet);
+	// stage.addChild(sprite);
+	
+	//THIRD STEP DONE
+	var walkingRight=new createjs.Sprite(spritesheet, "walkRight");
+	walkingRight.y=50;
+	stage.addChild(walkingRight);
+	
+	//STEP FOUR DONE
+	walkingRight.addEventListener("change", moveRight);
+	
+	
+	//STEP FIVE DONE
+	
+	//My Herd of Bision
+	var littleBitLower=new createjs.Sprite(spritesheet, "walkRight");
+	littleBitLower.y=150;
+	stage.addChild(littleBitLower);
+	littleBitLower.addEventListener("change", moveRight);
+	
+	var littleToTheLeft=new createjs.Sprite(spritesheet, "walkRight");
+	littleToTheLeft.y=60;
+	littleToTheLeft.x=75;
+	stage.addChild(littleToTheLeft);
+	littleToTheLeft.addEventListener("change", moveRight);
+	
+	
+	//STEP SIX DONE
+	littleToTheLeft.scaleX=.5;
+	littleToTheLeft.scaleY=.5;
+	
+	
+	littleBitLower.scaleX=2;
+	littleBitLower.scaleY=2;
+	
+	
+	
+	
     // TICKER
     createjs.Ticker.setFPS(20);
     createjs.Ticker.addEventListener("tick",run);
   }
+  
+  function moveRight(e)
+  {
+	  e.target.x++;
+	  if (e.target.x>500)
+	  {
+		  e.target.x=0;
+	  }
+	  
+  }
+  
 
   // listener for Ticker "tick"
-  function run(e) {
+  function run(e) 
+  {
     stage.update();
   }
   </script>
